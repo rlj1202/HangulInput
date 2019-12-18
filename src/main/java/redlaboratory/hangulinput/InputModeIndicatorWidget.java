@@ -36,4 +36,9 @@ public class InputModeIndicatorWidget extends Widget {
         super.renderButton(mouseX, mouseY, partialTicks);
     }
 
+    @Override
+    public boolean mouseClicked(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
+        return false;
+    }
+
 }
