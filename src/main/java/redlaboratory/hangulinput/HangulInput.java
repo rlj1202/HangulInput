@@ -1,8 +1,6 @@
 package redlaboratory.hangulinput;
 
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.EditSignScreen;
-import net.minecraft.client.gui.screen.WorldSelectionScreen;
+import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.inventory.AnvilScreen;
 import net.minecraft.client.gui.screen.inventory.CreativeScreen;
 import net.minecraftforge.api.distmarker.Dist;
@@ -70,6 +68,32 @@ public class HangulInput {
                     25,
                     12, 12, "", HANGUL_BUILDER
             ));
+        } else if (event.getGui() instanceof AddServerScreen) {
+            event.addWidget(new InputModeIndicatorWidget(
+                    guiwidth / 2 - 120,
+                    70,
+                    12, 12, "", HANGUL_BUILDER
+            ));
+        } else if (event.getGui() instanceof EditBookScreen) {
+            event.addWidget(new InputModeIndicatorWidget(
+                    guiwidth / 2 - 100,
+                    30,
+                    12, 12, "", HANGUL_BUILDER
+            ));
+        } else if (event.getGui() instanceof CreateWorldScreen) {
+            event.addWidget(new InputModeIndicatorWidget(
+                    guiwidth / 2 - 120,
+                    64,
+                    12 ,12, "", HANGUL_BUILDER
+            ));
+        } else if (event.getGui() instanceof ServerListScreen) {
+            event.addWidget(new InputModeIndicatorWidget(
+                    guiwidth / 2 - 120,
+                    119,
+                    12, 12, "", HANGUL_BUILDER
+            ));
+        } else {
+            LOGGER.info(event.getGui().getClass().getName());
         }
     }
 
