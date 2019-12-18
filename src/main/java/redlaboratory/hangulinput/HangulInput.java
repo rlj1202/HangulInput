@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +25,8 @@ public class HangulInput {
     private static final HangulBuilder HANGUL_BUILDER = new HangulBuilder();
 
     private static final Logger LOGGER = LogManager.getLogger(MODID);
+
+    public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public HangulInput() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -89,7 +92,7 @@ public class HangulInput {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void onGuiKeyboardPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
-        if (event.getKeyCode() == GLFW.GLFW_KEY_LEFT_CONTROL) {
+        if (event.getKeyCode() == ClientProxy.toggleHangulInputMode.getKey().getKeyCode()) {
             HANGUL_BUILDER.toggleHangulMode();
             HANGUL_BUILDER.clearStates();
 
@@ -116,7 +119,8 @@ public class HangulInput {
                 || event.getKeyCode() == GLFW.GLFW_KEY_RIGHT
                 || event.getKeyCode() == GLFW.GLFW_KEY_ESCAPE
                 || event.getKeyCode() == GLFW.GLFW_KEY_ENTER
-                || event.getKeyCode() == GLFW.GLFW_KEY_KP_ENTER) {
+                || event.getKeyCode() == GLFW.GLFW_KEY_KP_ENTER
+                || event.getKeyCode() == GLFW.GLFW_KEY_DELETE) {
             HANGUL_BUILDER.clearStates();
 
             LOGGER.info("clear states");
