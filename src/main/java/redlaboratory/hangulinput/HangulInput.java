@@ -35,8 +35,11 @@ public class HangulInput {
     public void onGuiInitPost(GuiScreenEvent.InitGuiEvent.Post event) {
         if (event.getGui() == null) return;
 
-        int guiwidth = event.getGui().width;
-        int guiheight = event.getGui().height;
+        // TODO
+//        int guiwidth = event.getGui().width;
+//        int guiheight = event.getGui().height;
+        int guiwidth = event.getGui().field_230708_k_;
+        int guiheight = event.getGui().field_230709_l_;
 
         if (event.getGui() instanceof ChatScreen) {
             event.addWidget(new InputModeIndicatorWidget(
@@ -57,9 +60,14 @@ public class HangulInput {
                     12, 12, "", HANGUL_BUILDER
             ));
         } else if (event.getGui() instanceof CreativeScreen) {
+//            event.addWidget(new InputModeIndicatorWidget(
+//                    guiwidth / 2 + 77,
+//                    guiheight / 2 - 64,
+//                    12, 12, "", HANGUL_BUILDER
+//            ));
             event.addWidget(new InputModeIndicatorWidget(
-                    guiwidth / 2 + 77,
-                    guiheight / 2 - 64,
+                    guiwidth - 14,
+                    guiheight - 14,
                     12, 12, "", HANGUL_BUILDER
             ));
         } else if (event.getGui() instanceof WorldSelectionScreen) {
@@ -124,12 +132,16 @@ public class HangulInput {
         } else if (event.getKeyCode() == GLFW.GLFW_KEY_BACKSPACE) {
             event.setCanceled(true);
 
-            event.getGui().keyPressed(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
+            // TODO
+//            event.getGui().keyPressed(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
+            event.getGui().func_231046_a_(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
 
             HangulBuilder.Result result = HANGUL_BUILDER.remove();
 
             if (result.flagUpdate) {
-                event.getGui().charTyped(result.updatedLetter, 0);
+                // TODO
+//                event.getGui().charTyped(result.updatedLetter, 0);
+                event.getGui().func_231042_a_(result.updatedLetter, 0);
             }
 
             if (!result.flagUpdate && !result.flagAdd) {
@@ -162,11 +174,17 @@ public class HangulInput {
         HangulBuilder.Result result = HANGUL_BUILDER.add(event.getCodePoint());
 
         if (result.flagUpdate) {
-            event.getGui().keyPressed(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
-            event.getGui().charTyped(result.updatedLetter, 0);
+            // TODO
+//            event.getGui().keyPressed(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
+//            event.getGui().charTyped(result.updatedLetter, 0);
+            event.getGui().func_231046_a_(GLFW.GLFW_KEY_BACKSPACE, event.getModifiers(), 0);
+            event.getGui().func_231042_a_(result.updatedLetter, 0);
+
         }
         if (result.flagAdd) {
-            event.getGui().charTyped(result.addedLetter, 0);
+            // TODO
+//            event.getGui().charTyped(result.addedLetter, 0);
+            event.getGui().func_231042_a_(result.addedLetter, 0);
         }
 
         LOGGER.info("key typed : " + result);
